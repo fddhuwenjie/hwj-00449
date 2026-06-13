@@ -1,0 +1,231 @@
+# Node.js
+
+A JavaScript runtime built on Chrome's V8 engine
+
+<!-- notes: Welcome everyone to this Node.js introduction. This presentation covers the fundamentals. -->
+
+---
+
+# Introduction
+
+- Created by **Ryan Dahl** in 2009
+- Built on Google's **V8 JavaScript engine**
+- Uses an **event-driven**, **non-blocking I/O** model
+- Designed for building **scalable network applications**
+- Runs JavaScript on the **server side**
+
+<!-- notes: Emphasize the historical context and the key innovation of non-blocking I/O. -->
+
+---
+
+# Core Features
+
+## What makes Node.js special?
+
+- **Asynchronous** by default
+- **Single-threaded** event loop architecture
+- **NPM** - the world's largest package registry
+- **Cross-platform** - runs on Windows, macOS, Linux
+- **Fast** - V8 engine compiles JS to native machine code
+- **Streaming** - process data chunk by chunk
+
+<!-- notes: The single-threaded nature is often misunderstood. It uses an event loop, not true single threading for all operations. -->
+
+---
+
+# Module System
+
+## CommonJS Modules
+
+```javascript
+// logger.js - Exporting a module
+const fs = require('fs');
+
+function log(message) {
+  const timestamp = new Date().toISOString();
+  fs.appendFileSync('app.log', `[${timestamp}] ${message}\n`);
+}
+
+module.exports = { log };
+```
+
+```javascript
+// app.js - Importing a module
+const { log } = require('./logger');
+
+log('Application started');
+log('Server listening on port 3000');
+```
+
+<!-- notes: CommonJS is the traditional module system. ES Modules are increasingly supported too. -->
+
+---
+
+# NPM
+
+## Node Package Manager
+
+- Over **2 million packages** available
+- Manage dependencies with `package.json`
+- **Semantic versioning** (semver) for version control
+
+```bash
+# Initialize a new project
+npm init -y
+
+# Install a package
+npm install express
+
+# Install as dev dependency
+npm install --save-dev jest
+
+# Run scripts defined in package.json
+npm run build
+npm start
+```
+
+<!-- notes: Mention that npm is the default but alternatives like yarn and pnpm exist. -->
+
+---
+
+# Async Programming
+
+## Callbacks, Promises, and Async/Await
+
+```javascript
+// Async/Await - Modern approach
+async function fetchUserData(userId) {
+  try {
+    const response = await fetch(`/api/users/${userId}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw error;
+  }
+}
+```
+
+- **Callbacks** - the original async pattern
+- **Promises** - cleaner chain-based async
+- **Async/Await** - synchronous-looking async code
+
+<!-- notes: Async/await is syntactic sugar over promises. It makes async code much more readable. -->
+
+---
+
+# Event Loop
+
+## How Node.js handles concurrency
+
+- **Single thread** manages all operations
+- **Event queue** holds pending callbacks
+- **Non-blocking** I/O delegates to system kernel
+- **Phases**: timers, I/O callbacks, idle, poll, check, close
+
+```javascript
+console.log('1 - Synchronous');
+
+setTimeout(() => {
+  console.log('2 - Timer callback');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('3 - Microtask');
+});
+
+console.log('4 - Synchronous');
+
+// Output: 1, 4, 3, 2
+```
+
+<!-- notes: Microtasks (Promises) execute before macrotasks (setTimeout). This is a common interview question. -->
+
+---
+
+# Streams & Buffers
+
+## Processing data efficiently
+
+- **Readable** streams - source of data
+- **Writable** streams - destination for data
+- **Transform** streams - modify data in transit
+- **Duplex** streams - both read and write
+
+```javascript
+const fs = require('fs');
+const zlib = require('zlib');
+
+// Stream-based file compression
+fs.createReadStream('input.txt')
+  .pipe(zlib.createGzip())
+  .pipe(fs.createWriteStream('output.txt.gz'));
+
+console.log('File compression started');
+```
+
+<!-- notes: Streams are fundamental to Node.js. They allow processing large files without loading them entirely into memory. -->
+
+---
+
+# REST API
+
+## Building a RESTful API with Express
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let todos = [
+  { id: 1, task: 'Learn Node.js', done: false },
+  { id: 2, task: 'Build an API', done: true }
+];
+
+app.get('/api/todos', (req, res) => {
+  res.json(todos);
+});
+
+app.post('/api/todos', (req, res) => {
+  const todo = { id: todos.length + 1, ...req.body };
+  todos.push(todo);
+  res.status(201).json(todo);
+});
+
+app.listen(3000, () => console.log('Server running'));
+```
+
+<!-- notes: Express is the most popular web framework but alternatives like Fastify and Koa are worth mentioning. -->
+
+---
+
+# Getting Started
+
+## Your Node.js journey begins here
+
+1. **Install Node.js** from nodejs.org
+2. **Verify installation** with `node --version`
+3. **Create a project** with `npm init`
+4. **Write your first server**
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello, Node.js!\n');
+});
+
+server.listen(3000, () => {
+  console.log('Server running at http://localhost:3000/');
+});
+```
+
+### Resources
+
+- **Official Docs**: nodejs.org/docs
+- **NPM Registry**: npmjs.com
+- **Node.js Best Practices**: github.com/goldbergyoni/nodebestpractices
+
+<!-- notes: Encourage the audience to start with the official documentation and explore real-world projects on GitHub. -->
