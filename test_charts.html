@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Slides Presentation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1e1e2e; color: #d4d4d4; font-family: 'Menlo', 'Consolas', 'Courier New', monospace; overflow: hidden; }
+  .slide { display: none; height: 100vh; padding: 5vh 8vw; flex-direction: column; justify-content: center; align-items: center; }
+  .slide.active { display: flex; }
+  .heading { font-size: 3em; font-weight: bold; color: #56b6f7; text-align: center; margin-bottom: 0.5em; letter-spacing: 0.1em; }
+  .subheading { font-size: 1.6em; color: #56b6f7; text-align: center; margin-bottom: 0.8em; }
+  .subsubheading { font-size: 1.3em; color: #fabd5f; text-align: center; margin-bottom: 0.5em; }
+  .text { text-align: center; margin: 0.3em 0; line-height: 1.6; }
+  .list-item { margin: 0.3em 0 0.3em 2em; line-height: 1.6; }
+  .list-item::before { content: '• '; color: #fabd5f; font-weight: bold; }
+  .olist-item { margin: 0.3em 0 0.3em 2em; line-height: 1.6; }
+  .olist-num { color: #fabd5f; font-weight: bold; }
+  .code-block { background: #282838; border-radius: 6px; padding: 1em; margin: 0.8em 0; width: 90%; max-width: 800px; overflow-x: auto; }
+  .code-header { color: #888; font-size: 0.8em; border-bottom: 1px solid #444; padding-bottom: 0.3em; margin-bottom: 0.5em; }
+  .code-line { line-height: 1.5; white-space: pre; }
+  .keyword { color: #e06c75; }
+  .string { color: #98c379; }
+  .number { color: #d19a66; }
+  .comment { color: #888; font-style: italic; }
+  .bold { font-weight: bold; }
+  .italic { font-style: italic; }
+  .underline { text-decoration: underline; }
+  .status-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 2em; background: #282838; display: flex; align-items: center; padding: 0 1em; font-size: 0.8em; justify-content: space-between; }
+  .progress { height: 4px; background: #56b6f7; flex: 1; max-width: 200px; margin: 0 1em; border-radius: 2px; }
+  .progress-bg { height: 100%; background: #444; border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #56b6f7; transition: width 0.3s; }
+  .nav-hint { color: #888; }
+  .spacer { flex: 1; }
+</style>
+</head>
+<body>
+<div class="slide active" data-index="0">
+  <div class="heading">Charts Demo</div>
+  <div style="height:1em"></div>
+</div>
+<div class="slide" data-index="1">
+  <div style="height:1em"></div>
+  <div class="subheading">Bar Chart</div>
+  <div style="height:1em"></div>
+  <div class="chart-container" style="margin:1em 0;display:flex;flex-direction:column;align-items:center"><svg width="600" height="180" xmlns="http://www.w3.org/2000/svg"><text x="95" y="30" text-anchor="end" fill="#d4d4d4" font-size="14" font-family="monospace">React</text><rect x="100" y="10" width="420" height="30" fill="#fabd5f" rx="3"/><text x="528" y="30" fill="#d4d4d4" font-size="13" font-family="monospace">80</text><text x="95" y="70" text-anchor="end" fill="#d4d4d4" font-size="14" font-family="monospace">Vue</text><rect x="100" y="50" width="315" height="30" fill="#56b6f7" rx="3"/><text x="423" y="70" fill="#d4d4d4" font-size="13" font-family="monospace">60</text><text x="95" y="110" text-anchor="end" fill="#d4d4d4" font-size="14" font-family="monospace">Angular</text><rect x="100" y="90" width="236.25" height="30" fill="#fabd5f" rx="3"/><text x="344.25" y="110" fill="#d4d4d4" font-size="13" font-family="monospace">45</text><text x="95" y="150" text-anchor="end" fill="#d4d4d4" font-size="14" font-family="monospace">Svelte</text><rect x="100" y="130" width="183.75" height="30" fill="#98c379" rx="3"/><text x="291.75" y="150" fill="#d4d4d4" font-size="13" font-family="monospace">35</text></svg></div>
+  <div style="height:1em"></div>
+</div>
+<div class="slide" data-index="2">
+  <div style="height:1em"></div>
+  <div class="subheading">Line Chart</div>
+  <div style="height:1em"></div>
+  <div class="chart-container" style="margin:1em 0;display:flex;flex-direction:column;align-items:center"><svg width="600" height="300" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="20" x2="50" y2="260" stroke="#d4d4d4" stroke-opacity="0.3"/><line x1="50" y1="260" x2="580" y2="260" stroke="#d4d4d4" stroke-opacity="0.3"/><line x1="50" y1="20" x2="580" y2="20" stroke="#d4d4d4" stroke-opacity="0.1" stroke-dasharray="4,4"/><text x="45" y="24" text-anchor="end" fill="#d4d4d4" font-size="11" font-family="monospace">320</text><line x1="50" y1="80" x2="580" y2="80" stroke="#d4d4d4" stroke-opacity="0.1" stroke-dasharray="4,4"/><text x="45" y="84" text-anchor="end" fill="#d4d4d4" font-size="11" font-family="monospace">265</text><line x1="50" y1="140" x2="580" y2="140" stroke="#d4d4d4" stroke-opacity="0.1" stroke-dasharray="4,4"/><text x="45" y="144" text-anchor="end" fill="#d4d4d4" font-size="11" font-family="monospace">210</text><line x1="50" y1="200" x2="580" y2="200" stroke="#d4d4d4" stroke-opacity="0.1" stroke-dasharray="4,4"/><text x="45" y="204" text-anchor="end" fill="#d4d4d4" font-size="11" font-family="monospace">155</text><line x1="50" y1="260" x2="580" y2="260" stroke="#d4d4d4" stroke-opacity="0.1" stroke-dasharray="4,4"/><text x="45" y="264" text-anchor="end" fill="#d4d4d4" font-size="11" font-family="monospace">100</text><path d="M 50 260 L 182.5 227.27272727272728 L 315 172.72727272727272 L 447.5 96.36363636363637 L 580 20" fill="none" stroke="#fabd5f" stroke-width="2"/><circle cx="50" cy="260" r="4" fill="#fabd5f"/><circle cx="182.5" cy="227.27272727272728" r="4" fill="#fabd5f"/><circle cx="315" cy="172.72727272727272" r="4" fill="#fabd5f"/><circle cx="447.5" cy="96.36363636363637" r="4" fill="#fabd5f"/><circle cx="580" cy="20" r="4" fill="#fabd5f"/><text x="50" y="280" text-anchor="middle" fill="#d4d4d4" font-size="11" font-family="monospace">2020</text><text x="182.5" y="280" text-anchor="middle" fill="#d4d4d4" font-size="11" font-family="monospace">2021</text><text x="315" y="280" text-anchor="middle" fill="#d4d4d4" font-size="11" font-family="monospace">2022</text><text x="447.5" y="280" text-anchor="middle" fill="#d4d4d4" font-size="11" font-family="monospace">2023</text><text x="580" y="280" text-anchor="middle" fill="#d4d4d4" font-size="11" font-family="monospace">2024</text></svg></div>
+  <div style="height:1em"></div>
+</div>
+<div class="slide" data-index="3">
+  <div style="height:1em"></div>
+  <div class="subheading">Pie Chart</div>
+  <div style="height:1em"></div>
+  <div class="chart-container" style="margin:1em 0;display:flex;flex-direction:column;align-items:center"><svg width="500" height="350" xmlns="http://www.w3.org/2000/svg"><path d="M 170 175 L 170 25 A 150 150 0 0 1 258.167787843871 296.3525491562421 Z" fill="#fabd5f" stroke="#1e1e2e" stroke-width="2"/><path d="M 170 175 L 258.167787843871 296.3525491562421 A 150 150 0 0 1 20 175.00000000000003 Z" fill="#56b6f7" stroke="#1e1e2e" stroke-width="2"/><path d="M 170 175 L 20 175.00000000000003 A 150 150 0 0 1 169.99999999999997 25 Z" fill="#fabd5f" stroke="#1e1e2e" stroke-width="2"/><rect x="350" y="30" width="16" height="16" fill="#fabd5f" rx="2"/><text x="374" y="43" fill="#d4d4d4" font-size="13" font-family="monospace">Frontend (40.0%)</text><rect x="350" y="56" width="16" height="16" fill="#56b6f7" rx="2"/><text x="374" y="69" fill="#d4d4d4" font-size="13" font-family="monospace">Backend (35.0%)</text><rect x="350" y="82" width="16" height="16" fill="#fabd5f" rx="2"/><text x="374" y="95" fill="#d4d4d4" font-size="13" font-family="monospace">DevOps (25.0%)</text></svg></div>
+  <div style="height:1em"></div>
+</div>
+<div class="status-bar">
+  <span id="page-info">1/4</span>
+  <div class="progress"><div class="progress-bg"><div class="progress-fill" id="progress-fill" style="width:25%"></div></div></div>
+  <span id="pct">25%</span>
+  <span class="spacer"></span>
+  <span class="nav-hint">← → Space to navigate</span>
+</div>
+<script>
+let current = 0;
+const total = 4;
+const slides = document.querySelectorAll('.slide');
+const pageInfo = document.getElementById('page-info');
+const progressFill = document.getElementById('progress-fill');
+const pctEl = document.getElementById('pct');
+
+function showSlide(n) {
+  slides[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, total - 1));
+  slides[current].classList.add('active');
+  pageInfo.textContent = (current + 1) + '/' + total;
+  const p = Math.round(((current + 1) / total) * 100);
+  progressFill.style.width = p + '%';
+  pctEl.textContent = p + '%';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(current - 1); }
+  else if (e.key === 'Home' || e.key === 'g') { showSlide(0); }
+  else if (e.key === 'End' || e.key === 'G') { showSlide(total - 1); }
+});
+</script>
+</body>
+</html>
