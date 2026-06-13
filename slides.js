@@ -264,6 +264,36 @@ function processConditionals(content, activeTags) {
   return { content: result.join('\n'), conditionalSlides };
 }
 
+function removeEmptySlides(slides, conditionalSlides) {
+  const meaningfulTypes = new Set(['heading', 'subheading', 'subsubheading', 'text', 'list', 'olist', 'code', 'chart']);
+  const oldToNew = new Map();
+  const filtered = [];
+  let newIndex = 0;
+
+  for (let i = 0; i < slides.length; i++) {
+    const hasVisible = slides[i].elements.some(el => meaningfulTypes.has(el.type));
+    if (hasVisible) {
+      oldToNew.set(i, newIndex);
+      filtered.push(slides[i]);
+      newIndex++;
+    }
+  }
+
+  for (let i = 0; i < filtered.length; i++) {
+    filtered[i].index = i;
+  }
+
+  const newConditionalSlides = new Map();
+  for (const [oldIdx, tags] of conditionalSlides) {
+    const newIdx = oldToNew.get(oldIdx);
+    if (newIdx !== undefined) {
+      newConditionalSlides.set(newIdx, tags);
+    }
+  }
+
+  return { slides: filtered, conditionalSlides: newConditionalSlides };
+}
+
 function parseChartData(lines) {
   let chartType = null;
   const data = [];
@@ -1429,9 +1459,10 @@ async function main() {
     content = processIncludes(content, path.dirname(filePath));
     const condResult = processConditionals(content, activeTags);
     content = condResult.content;
-    conditionalSlides = condResult.conditionalSlides;
-
-    slides = parseSlides(content);
+    let preSlides = parseSlides(content);
+    const removeResult = removeEmptySlides(preSlides, condResult.conditionalSlides);
+    slides = removeResult.slides;
+    conditionalSlides = removeResult.conditionalSlides;
     slides.forEach((slide, idx) => {
       slide.hasConditional = conditionalSlides.has(idx);
       slide.tags = conditionalSlides.get(idx) || new Set();
@@ -1447,10 +1478,10 @@ async function main() {
     content = processIncludes(content, path.dirname(filePath));
     const condResult = processConditionals(content, activeTags);
     content = condResult.content;
-    conditionalSlides = condResult.conditionalSlides;
-
-    slides = parseSlides(content);
-
+    let preSlides = parseSlides(content);
+    const removeResult = removeEmptySlides(preSlides, condResult.conditionalSlides);
+    slides = removeResult.slides;
+    conditionalSlides = removeResult.conditionalSlides;
     slides.forEach((slide, idx) => {
       slide.hasConditional = conditionalSlides.has(idx);
       slide.tags = conditionalSlides.get(idx) || new Set();
